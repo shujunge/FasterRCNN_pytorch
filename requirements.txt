@@ -1,5 +1,5 @@
 pandas
-cupy-cuda90
+cupy-cuda100
 torchvision
 scikit-image==0.14.2
 tqdm

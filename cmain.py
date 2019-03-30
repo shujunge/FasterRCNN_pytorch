@@ -8,7 +8,7 @@ import pandas as pd
 from pprint import pprint
 from utils.eval_tool import eval_detection_voc
 from torch.utils import data as data_
-from data.dataset import Dataset, TestDataset, inverse_normalize
+from data.VOCdataset import Dataset, TestDataset, inverse_normalize
 from model import FasterRCNNVGG16
 from trainer import FasterRCNNTrainer
 from utils import array_tool as at
@@ -98,20 +98,24 @@ def eval(dataloader, faster_rcnn, test_num=10000):
 
 
 def train():
-  dataset = Dataset(opt)
-  # print('load data')
+  
+  dataset = Dataset(voc_data_dir=['/dataset/VOCdevkit/VOC2007', '/dataset/VOCdevkit/VOC2012'], size=(600, 1000))
   dataloader = data_.DataLoader(dataset, batch_size=1, shuffle=True)
-  testset = TestDataset(opt)
+  
+  testset = TestDataset(voc_data_dir=['/dataset/VOCdevkit/VOC2007'])
   test_dataloader = data_.DataLoader(testset, batch_size=1, shuffle=False)
+  
   faster_rcnn = FasterRCNNVGG16()  # anchor_scales=[8,16,32,64]
-  print('model construct completed')
   trainer = FasterRCNNTrainer(faster_rcnn).cuda()
+  print('model construct completed')
+  
   best_path = os.listdir("./checkpoints")
   best_path.sort()
   opt.load_path =os.path.join("./checkpoints",best_path[-2])
   if opt.load_path:
     trainer.load(opt.load_path)
     print('load pretrained model from %s' % opt.load_path)
+    
   best_map = 0
   lr_ = opt.lr
   record_pd = pd.read_csv("results.csv")

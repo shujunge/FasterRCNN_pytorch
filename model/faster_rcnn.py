@@ -8,7 +8,7 @@ from model.utils.bbox_tools import loc2bbox
 from model.utils.nms import non_maximum_suppression
 
 from torch import nn
-from data.dataset import preprocess
+from data.VOCdataset import preprocess
 from torch.nn import functional as F
 from utils.config import opt
 
