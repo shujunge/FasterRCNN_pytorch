@@ -1,0 +1,3 @@
+from model.faster_rcnn_vgg16 import FasterRCNNVGG16
+from model.faster_rcnn_resnet50 import FasterRCNNResNet50
+from model.faster_rcnn_densenet121 import FasterRCNNDensenet121

@@ -1,0 +1,9 @@
+pandas
+cupy-cuda90
+torchvision
+scikit-image==0.14.2
+tqdm
+pprint
+matplotlib
+cython
+git+https://github.com/pytorch/tnt.git@master
